@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.liford_recipeapp.Adapters.RandomRecipeAdapter;
 import com.example.liford_recipeapp.Listeners.RandomRecipeResponseListener;
+import com.example.liford_recipeapp.Listeners.RecipeClickListener;
 import com.example.liford_recipeapp.Models.RandomRecipeApiGenerator;
 
 import java.util.ArrayList;
@@ -99,13 +100,20 @@ public class MainActivity extends AppCompatActivity {
             recyclerView = findViewById(R.id.homeRecyclerView);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
-            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes);
+            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes, recipeClickListener);
             recyclerView.setAdapter(randomRecipeAdapter);
         }
 
         @Override
         public void didError(String message) {
             Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
+        @Override
+        public void onRecipeClicked(String id) {
+            startActivity(new Intent(MainActivity.this, RecipeDetails.class).putExtra("id", id));
         }
     };
 }
