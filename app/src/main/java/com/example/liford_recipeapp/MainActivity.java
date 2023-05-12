@@ -3,6 +3,7 @@ package com.example.liford_recipeapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,8 +22,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    SearchView homeSearchView;
     Button categoryBtn;
-    Button keywordBtn;
     Button savedRecipeBtn;
 
     ProgressDialog dialog;
@@ -38,12 +39,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         categoryBtn = findViewById(R.id.categoryBtn);
-        keywordBtn = findViewById(R.id.keywordBtn);
         savedRecipeBtn = findViewById(R.id.savedRecipesBtn);
 
         //create intents for each button
         Intent categoryIntent = new Intent(this, CategoryChoice.class);
-        Intent keywordIntent = new Intent(this, KeywordChoice.class);
         Intent savedRecipeIntent = new Intent(this, SavedRecipeChoice.class);
 
         //on-click listener for category choice
@@ -54,13 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //on-click listener for keyword choice
-        keywordBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(keywordIntent);
-            }
-        });
+
 
         //on-click listener for saved recipes choice
         savedRecipeBtn.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +68,23 @@ public class MainActivity extends AppCompatActivity {
 
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading...");
+
+        homeSearchView = findViewById(R.id.homeSearchView);
+        homeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                tags.clear();
+                tags.add(query);
+                manager.getRandomRecipes(randomRecipeResponseListener, tags);
+                dialog.show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
 
         manager = new RequestManager(this);
         manager.getRandomRecipes(randomRecipeResponseListener, tags);
@@ -95,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void didError(String message) {
-            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT);
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
         }
     };
 }

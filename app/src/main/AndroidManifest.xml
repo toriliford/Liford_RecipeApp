@@ -17,9 +17,7 @@
         <activity
             android:name=".SavedRecipeChoice"
             android:exported="false" />
-        <activity
-            android:name=".KeywordChoice"
-            android:exported="false" />
+
         <activity
             android:name=".CategoryChoice"
             android:exported="false" />
