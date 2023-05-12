@@ -15,6 +15,10 @@ import com.example.liford_recipeapp.Adapters.RandomRecipeAdapter;
 import com.example.liford_recipeapp.Listeners.RandomRecipeResponseListener;
 import com.example.liford_recipeapp.Models.RandomRecipeApiGenerator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     Button categoryBtn;
@@ -25,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
     RecyclerView recyclerView;
+
+    List<String> tags = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +70,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //add all tags so it can be random
+        tags.addAll(Arrays.asList(getResources().getStringArray(R.array.tags)));
 
         dialog = new ProgressDialog(this);
         dialog.setTitle("Loading...");
 
         manager = new RequestManager(this);
-        manager.getRandomRecipes(randomRecipeResponseListener);
+        manager.getRandomRecipes(randomRecipeResponseListener, tags);
         dialog.show();
     }
 

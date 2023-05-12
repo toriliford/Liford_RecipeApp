@@ -5,6 +5,8 @@ import android.content.Context;
 import com.example.liford_recipeapp.Listeners.RandomRecipeResponseListener;
 import com.example.liford_recipeapp.Models.RandomRecipeApiGenerator;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,11 +30,11 @@ public class RequestManager {
     }
 
     //we can call this method from any activity to return all data of random recipes
-    public void getRandomRecipes(RandomRecipeResponseListener listener)
+    public void getRandomRecipes(RandomRecipeResponseListener listener, List<String> tags)
     {
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
         //heres the actual call itself, pulling from spoonacular with correct parameters
-        Call<RandomRecipeApiGenerator> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_key), "5");
+        Call<RandomRecipeApiGenerator> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_key), "5", tags);
         call.enqueue(new Callback<RandomRecipeApiGenerator>() {
             @Override
             //if theres a response from the call..
@@ -40,6 +42,7 @@ public class RequestManager {
                 //if response isnt successful, call error method
                 if(!response.isSuccessful()){
                     listener.didError(response.message());
+                    return;
                 }
                 //else, return message
                 listener.didFetch(response.body(), response.message());
@@ -59,8 +62,8 @@ public class RequestManager {
         Call<RandomRecipeApiGenerator> callRandomRecipe(
                 //pass the api key and the number of recipes to print, and keyword tag
                 @Query("apiKey") String apiKey,
-                @Query("number") String number
-                //@Query("tags") String tags
+                @Query("number") String number,
+                @Query("tags") List<String> tags
         );
     }
 }
