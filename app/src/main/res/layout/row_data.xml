@@ -11,18 +11,17 @@
         >
 
         <TextView
-            android:id="@+id/breakfastOptionsTV"
+            android:id="@+id/recipeName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginEnd="44dp"
-            android:layout_toStartOf="@id/breakfastImages"
-            android:text="Pancakes"
-            android:textSize="25dp"
+            android:layout_toStartOf="@id/image"
+            android:text="@string/recipeName"
+            android:textSize="25sp"
             />
 
         <ImageView
-            android:id="@+id/breakfastImages"
+            android:id="@+id/image"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
@@ -30,6 +29,16 @@
             android:layout_marginEnd="27dp"
             android:src="@drawable/pancakes"
             />
+
+        <TextView
+            android:id="@+id/recipeCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recipeName"
+            style="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+            android:text="@string/recipeCategory"
+            />
+
 
     </RelativeLayout>
 
