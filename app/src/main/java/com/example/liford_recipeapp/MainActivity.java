@@ -1,11 +1,19 @@
 package com.example.liford_recipeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.liford_recipeapp.Adapters.RandomRecipeAdapter;
+import com.example.liford_recipeapp.Listeners.RandomRecipeResponseListener;
+import com.example.liford_recipeapp.Models.RandomRecipeApiGenerator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     Button keywordBtn;
     Button savedRecipeBtn;
 
+    ProgressDialog dialog;
+    RequestManager manager;
+    RandomRecipeAdapter randomRecipeAdapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,5 +65,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("Loading...");
+
+        manager = new RequestManager(this);
+        manager.getRandomRecipes(randomRecipeResponseListener);
+        dialog.show();
     }
+
+    private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+        @Override
+        public void didFetch(RandomRecipeApiGenerator response, String message) {
+            //dismiss dialog when fetched
+            dialog.dismiss();
+            recyclerView = findViewById(R.id.homeRecyclerView);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
+            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes);
+            recyclerView.setAdapter(randomRecipeAdapter);
+        }
+
+        @Override
+        public void didError(String message) {
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT);
+        }
+    };
 }

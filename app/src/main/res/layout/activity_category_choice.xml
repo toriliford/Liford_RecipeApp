@@ -72,14 +72,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        />
+        android:orientation="vertical">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/beginFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="com.example.liford_recipeapp.BreakfastFragment"
-            />
+
+
+    </LinearLayout>
+
+
 
 </LinearLayout>
