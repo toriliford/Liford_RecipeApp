@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="10dp"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        />
+        <TextView
+            android:id="@+id/textViewIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1c Sugar"
+            android:textColor="@color/pine_green"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:padding="5dp"
+            />
+        <ImageView
+            android:id="@+id/ingredientsImageView"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:scaleType="center"
+            />
+        <TextView
+            android:id="@+id/textViewIngredientsName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chicken"
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:textColor="@color/pine_green"
+            android:textStyle="bold"
+            android:padding="5dp"
+            />
+
+</androidx.cardview.widget.CardView>
