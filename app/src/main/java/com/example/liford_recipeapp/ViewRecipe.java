@@ -12,7 +12,7 @@ public class ViewRecipe extends AppCompatActivity {
 
     //this class is where we show the actual recipe
 
-    Button backBtn;
+    private Button backBtn;
     private TextView recipeName;
     private TextView recipeCategory;
     private TextView ingredients;
