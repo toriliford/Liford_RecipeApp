@@ -3,30 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/shamrock_green"
-    tools:context=".BreakfastFragment">
+    tools:context=".Fragments.BreakfastFragment">
 
-
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/breakfastRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/breakfast"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
+        android:layout_margin="5dp"
         />
-
-<!--    <ListView-->
-<!--        android:id="@+id/breakfastLV"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="45dp"-->
-<!--        >-->
-
-
-
-    </ListView>
 
 </FrameLayout>

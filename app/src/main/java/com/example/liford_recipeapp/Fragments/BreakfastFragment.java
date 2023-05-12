@@ -1,14 +1,24 @@
 package com.example.liford_recipeapp.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.liford_recipeapp.Adapters.RandomRecipeAdapter;
+import com.example.liford_recipeapp.CategoryChoice;
+import com.example.liford_recipeapp.Listeners.RandomRecipeResponseListener;
+import com.example.liford_recipeapp.MainActivity;
+import com.example.liford_recipeapp.Models.RandomRecipeApiGenerator;
 import com.example.liford_recipeapp.R;
+import com.example.liford_recipeapp.RequestManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,14 +27,10 @@ import com.example.liford_recipeapp.R;
  */
 public class BreakfastFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    ProgressDialog dialog;
+    RequestManager manager;
+    RandomRecipeAdapter randomRecipeAdapter;
+    RecyclerView recyclerView;
 
     public BreakfastFragment() {
         // Required empty public constructor
@@ -63,4 +69,22 @@ public class BreakfastFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_breakfast, container, false);
     }
+
+    private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+        @Override
+        public void didFetch(RandomRecipeApiGenerator response, String message) {
+            //dismiss dialog when fetched
+            dialog.dismiss();
+            recyclerView = (RecyclerView) recyclerView.findViewById(R.id.);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new GridLayoutManager(CategoryChoice.class, 1));
+            randomRecipeAdapter = new RandomRecipeAdapter(CategoryChoice.class, response.recipes);
+            recyclerView.setAdapter(randomRecipeAdapter);
+        }
+
+        @Override
+        public void didError(String message) {
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT);
+        }
+    };
 }
